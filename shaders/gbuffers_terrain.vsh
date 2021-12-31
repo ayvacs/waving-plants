@@ -1,9 +1,7 @@
 #version 120
 
-/*     WAVING PLANTS SHADERPACK BY REGI24     */
-
 //Crop Vegetation
-#define CARROT 				141.0	//Carrot	
+#define CARROT 				141.0	//Carrot
 #define POTATO 				142.0	//Potato
 #define WHEAT 				59.0	//Wheat
 
@@ -18,7 +16,7 @@
 //Ground Vegetation
 #define DEAD_BUSH 			32.0	//Dead Bush
 #define FLOWER1 			37.0 	//Dandelion
-#define FLOWER2				38.0	//Poppy, Blue Orchid, Allium, Azure Bluet, Red/Orange/White/Pink Tulip, Oxeye Daisy 
+#define FLOWER2				38.0	//Poppy, Blue Orchid, Allium, Azure Bluet, Red/Orange/White/Pink Tulip, Oxeye Daisy
 #define GRASS 				31.0	//Grass
 #define NETHER_WART		    115.0	//Nether Wart
 #define SAPLING 			6.0		//Saplings
@@ -46,8 +44,8 @@
 #define CROP_VEGETATION
 #define HANGING_VEGETATION
 #define LARGE_VEGETATION
-#define GROUND_VEGETATION 
-#define LEAF_VEGETATION 
+#define GROUND_VEGETATION
+#define LEAF_VEGETATION
 #define LIQUID_HIGH_VISCOSITY
 #define LIQUID_LOW_VISCOSITY
 #define WATER_VEGETATION
@@ -73,11 +71,11 @@ void main() {
 	float tick = frameTimeCounter;
 
 	lmcoord = gl_TextureMatrix[1] * gl_MultiTexCoord1;
-	
+
 	texcoord = gl_MultiTexCoord0;
-	
+
 	vec4 position = gl_Vertex;
-		
+
 float grassWeight = mod(texcoord.t * 16.0f, 1.0f / 16.0f);
 
 	   if (grassWeight < 0.01f) {
@@ -89,7 +87,7 @@ float grassWeight = mod(texcoord.t * 16.0f, 1.0f / 16.0f);
 CROP_VEGETATION
 	if (mc_Entity.x == CARROT || mc_Entity.x == POTATO || mc_Entity.x == WHEAT) {
 		float speed = 0.1;
-		
+
 		float magnitude = sin((tick * pi / (28.0)) + position.x + position.z) * 0.12 + 0.02;
 			  magnitude *= grassWeight * 0.2f;
 		float d0 = sin(tick * pi / (122.0 * speed)) * 3.0 - 1.5 + position.z;
@@ -99,10 +97,10 @@ CROP_VEGETATION
 		position.x += sin((tick * pi / (28.0 * speed)) + (position.x + d0) * 0.1 + (position.z + d1) * 0.1) * magnitude;
 		position.z += sin((tick * pi / (28.0 * speed)) + (position.z + d2) * 0.1 + (position.x + d3) * 0.1) * magnitude;
 	}
-	
+
 	if (mc_Entity.x == CARROT || mc_Entity.x == POTATO || mc_Entity.x == WHEAT) {
 		float speed = 0.04;
-		
+
 		float magnitude = (sin(((position.y + position.x)/2.0 + tick * pi / ((28.0)))) * 0.025 + 0.075) * 0.2;
 			  magnitude *= grassWeight;
 		float d0 = sin(tick * pi / (112.0 * speed)) * 3.0 - 1.5;
@@ -117,7 +115,7 @@ CROP_VEGETATION
 GROUND_VEGETATION
 	if (mc_Entity.x == DEAD_BUSH || mc_Entity.x == FLOWER1 || mc_Entity.x == FLOWER2 || mc_Entity.x == GRASS || mc_Entity.x == NETHER_WART || mc_Entity.x == SAPLING || mc_Entity.x == SHROOM1 || mc_Entity.x == SHROOM2 || mc_Entity.x == STEM1 || mc_Entity.x == STEM2) {
 		float speed = 0.9;
-		
+
 		float magnitude = sin((tick * pi / (28.0)) + position.x + position.z) * 0.1 + 0.1;
 			  magnitude *= grassWeight * 0.5f;
 		float d0 = sin(tick * pi / (122.0 * speed)) * 3.0 - 1.5 + position.z;
@@ -127,10 +125,10 @@ GROUND_VEGETATION
 		position.x += sin((tick * pi / (28.0 * speed)) + (position.x + d0) * 0.1 + (position.z + d1) * 0.1) * magnitude * (1.0f + rainStrength * 1.4f);
 		position.z += sin((tick * pi / (28.0 * speed)) + (position.z + d2) * 0.1 + (position.x + d3) * 0.1) * magnitude * (1.0f + rainStrength * 1.4f);
 	}
-	
+
 	if (mc_Entity.x == DEAD_BUSH || mc_Entity.x == FLOWER1 || mc_Entity.x == FLOWER2 || mc_Entity.x == GRASS || mc_Entity.x == NETHER_WART || mc_Entity.x == SAPLING || mc_Entity.x == SHROOM1 || mc_Entity.x == SHROOM2 || mc_Entity.x == STEM1 || mc_Entity.x == STEM2) {
 		float speed = 0.09;
-		
+
 		float magnitude = (sin(((position.y + position.x)/2.0 + tick * pi / ((28.0)))) * 0.05 + 0.15) * 0.4;
 			  magnitude *= grassWeight * 0.5f;
 		float d0 = sin(tick * pi / (112.0 * speed)) * 3.0 - 1.5;
@@ -140,8 +138,8 @@ GROUND_VEGETATION
 		position.x += sin((tick * pi / (18.0 * speed)) + (-position.x + d0)*1.6 + (position.z + d1)*1.6) * magnitude * (1.0f + rainStrength * 1.7f);
 		position.z += sin((tick * pi / (18.0 * speed)) + (position.z + d2)*1.6 + (-position.x + d3)*1.6) * magnitude * (1.0f + rainStrength * 1.7f);
 		position.y += sin((tick * pi / (11.0 * speed)) + (position.z + d2) + (position.x + d3)) * (magnitude/3.0) * (1.0f + rainStrength * 1.7f);
-	}	
-	
+	}
+
 HANGING_VEGETATION
     if (mc_Entity.x == VINE && texcoord.t < 0.60) {
         float speed = 0.3;
@@ -169,7 +167,7 @@ HANGING_VEGETATION
 LARGE_VEGETATION
 	if (mc_Entity.x == COCOA || mc_Entity.x == LFLOWERS || mc_Entity.x == SUGAR_CANE) {
 		float speed = 0.4;
-		
+
 		float magnitude = (sin((position.y + position.x + tick * pi / ((28.0) * speed))) * 0.15 + 0.15) * 0.20;
 		float d0 = sin(tick * pi / (112.0 * speed)) * 3.0 - 1.5;
 		float d1 = sin(tick * pi / (142.0 * speed)) * 3.0 - 1.5;
@@ -178,12 +176,12 @@ LARGE_VEGETATION
 		position.x += sin((tick * pi / (18.0 * speed)) + (-position.x + d0)*1.6 + (position.z + d1)*1.6) * magnitude * (1.0f + rainStrength * 1.0f);
 		position.z += sin((tick * pi / (17.0 * speed)) + (position.z + d2)*1.6 + (-position.x + d3)*1.6) * magnitude * (1.0f + rainStrength * 1.0f);
 		position.y += sin((tick * pi / (11.0 * speed)) + (position.z + d2) + (position.x + d3)) * (magnitude/2.0) * (1.0f + rainStrength * 1.0f);
-		
+
 	}
-	
+
 	if (mc_Entity.x == COCOA || mc_Entity.x == LFLOWERS || mc_Entity.x == SUGAR_CANE) {
 		float speed = 0.4;
-		
+
 		float magnitude = (sin((tick * pi / ((28.0) * speed))) * 0.05 + 0.15) * 0.1;
 		float d0 = sin(tick * pi / (122.0 * speed)) * 3.0 - 1.5;
 		float d1 = sin(tick * pi / (142.0 * speed)) * 3.0 - 1.5;
@@ -194,7 +192,7 @@ LARGE_VEGETATION
 		position.y += sin((tick * pi / (15.0 * speed)) + (position.z + d2) + (position.x + d3)) * (magnitude/1.0);
 	}
 
-LEAF_VEGETATION	
+LEAF_VEGETATION
 	if (mc_Entity.x == LEAF1 || mc_Entity.x == LEAF2) {
 		float speed = 0.10;
 
@@ -207,12 +205,12 @@ LEAF_VEGETATION
 		position.x += sin((tick * pi / (18.0 * speed)) + (-position.x + d0)*1.6 + (position.z + d1)*1.6) * magnitude * (1.0f + rainStrength * 1.0f);
 		position.z += sin((tick * pi / (17.0 * speed)) + (position.z + d2)*1.6 + (-position.x + d3)*1.6) * magnitude * (1.0f + rainStrength * 1.0f);
 		position.y += sin((tick * pi / (11.0 * speed)) + (position.z + d2) + (position.x + d3)) * (magnitude/2.0) * (1.0f + rainStrength * 1.0f);
-		
+
 	}
-	
+
 	if (mc_Entity.x == LEAF1 || mc_Entity.x == LEAF2) {
 		float speed = 0.075;
-		
+
 		float magnitude = (sin((tick * pi / ((28.0) * speed))) * 0.05 + 0.15) * 0.075;
 			  magnitude *= 1.0f - grassWeight;
 		float d0 = sin(tick * pi / (122.0 * speed)) * 3.0 - 1.5;
@@ -258,7 +256,7 @@ WATER_VEGETATION
         position.y += sin((tick * pi / (15.0 * speed)) + (position.z + d2) + (position.x + d3)) * magnitude;
         position.y -= 0.04;
     }
-	
+
     if (mc_Entity.x == LILY_PAD) {
         float speed = 0.4;
         float magnitude = (sin((tick * pi / ((28.0) * speed))) * 0.05 + 0.15) * 0.17;
@@ -270,9 +268,9 @@ WATER_VEGETATION
         position.y += sin((tick * pi / (15.0 * speed)) + (position.z + d2) + (position.x + d3)) * magnitude;
         position.y -= 0.04;
     }
-	
+
 	color = gl_Color;
-	
+
 	gl_Position = gl_ProjectionMatrix * (gl_ModelViewMatrix * position);
 
 	mat3 tbnMatrix = mat3(tangent.x, binormal.x, normal.x,
